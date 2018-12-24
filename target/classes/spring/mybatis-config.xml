@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD SQL Map Config 3.0//EN"  
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+
+		<typeAlias type="coms.hrsoft.bean.User" alias="User"/>
+
+
+		
+	</typeAliases>
+	
+	
+	<mappers>
+		<mapper resource="coms/hrsoft/mapping/UserMapper.xml"/>
+		<mapper resource="coms/hrsoft/mapping/AreasMapper.xml"/>
+		<mapper resource="coms/hrsoft/mapping/MediumMapper.xml"/>
+		<mapper resource="coms/hrsoft/mapping/WaterFormMapper.xml"/>
+		<mapper resource="coms/hrsoft/mapping/ElectricityFormMapper.xml"/>
+		<mapper resource="coms/hrsoft/mapping/GetAllFormsMapper.xml"/>
+	</mappers>
+	
+</configuration>

@@ -1,0 +1,128 @@
+body {
+	overflow-x: hidden;
+	font-family: "微软雅黑", "宋体";
+	font-size: 14px;
+	color: #000;
+	margin: 20px;
+	height: auto;
+	box-sizing: border-box;
+}
+
+#zz-content {
+	padding: 15px 30px 30px;
+	background: #f3f3f4;
+}
+
+.layer table tr {
+	height: 30px;
+	line-height: 30px;
+}
+
+.layer table th {
+	font-weight: normal;
+}
+
+.layer-body.smallOnce th {
+	white-space: nowrap;
+	padding: 0 10px 0 0;
+}
+
+.layer .layer-body,.layer table {
+	width: 100%;
+	color: #000;
+	text-align: center;
+	font-size: 14px;
+}
+
+.layer input[type=text],.layer table tr td input[type=text],.layer table tr td select,.office-select select,.layer input[type=password]
+	{
+	width: 100%;
+	line-height: 24px;
+	height: 30px;
+	font-size: 14px;
+	margin: 5px 0;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	padding-left: 5%;
+}
+
+.layer input[type=radio] {
+	margin: 0 10px 0 0;
+}
+
+.layer-footer {
+	text-align: right;
+	margin-top: 20px;
+}
+
+.eq-textarea {
+	width: 100%;
+	height: 100px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	resize: none;
+}
+
+.office-select {
+	width: 48%;
+	margin-right: 2%;
+}
+
+.office-select.wid-100 {
+	width: 100%;
+	margin-right: 0;
+}
+
+.child-tbody .td-pad {
+	padding: 0 5%;
+}
+
+.table-bordered {
+    border: 1px solid #EBEBEB;
+    width: 100%;
+    border-bottom: 0;
+    border-right: 0;
+}
+.table .main_head th{
+	   background-color: #F5F5F6;
+}
+.table .main_head th,.table .main_info td{
+	border: 1px solid #e7e7e7;
+    border-left: 0;
+    border-top: 0;
+	line-height: 1.42857;
+	padding: 8px;
+	vertical-align: middle;
+	text-align: center;
+	font-size: 14px;
+	white-space: nowrap;
+	word-break: break-all;
+	color:#666;
+}
+/*多选*/
+.layer .selectMore{
+	padding-top:20px;
+}
+
+.layer .selectMore .selectWrapper{
+	width:40%
+}
+.layer .selectMore .selectWrapper select{
+	width:100%;
+	height:200px;
+}
+.layer .selectMore .selectBtn{
+	width:20%;
+	padding:0 1%;
+	font-size:12px;
+	margin-top:20px;
+}
+.layer input[type=text].selectValue{
+	width:70%;
+	padding:0 2%;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	
+}
+
+

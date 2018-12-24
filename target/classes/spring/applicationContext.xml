@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd
+ http://www.springframework.org/schema/aop 
+ http://www.springframework.org/schema/aop/spring-aop.xsd
+  	           http://www.springframework.org/schema/mvc 
+  	           http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+   http://www.springframework.org/schema/tx 
+   http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+	http://mybatis.org/schema/mybatis-spring 
+	http://mybatis.org/schema/mybatis-spring-1.2.xsd">
+	
+<!-- mybaties:scan会扫描coms.hrsoft.mapper 包里的所有接口当做mapper配置，之后自动引入mapper类-->
+<mybatis:scan base-package="coms.hrsoft.mapper"/>
+
+<!-- 扫描coms.hrsoft下的所有java文件，注册spring bean-->
+<context:component-scan base-package="coms.hrsoft"/>
+
+
+
+
+    <!-- 开启AOP注解扫描 -->
+    <aop:aspectj-autoproxy proxy-target-class="true" />
+	<!-- 引入数据库配置文件 -->
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:jdbc.properties" />
+    </bean>
+
+    <!-- 数据库配置 -->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+        destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driverClassName}" />
+        <property name="url" value="${jdbc.url}" />
+        <property name="username" value="${jdbc.username}" />
+        <property name="password" value="${jdbc.password}" />
+         <property name="initialSize" value="${dataSource.initialSize}" />
+        <property name="maxActive" value="${dataSource.maxActive}" />
+        <property name="maxIdle" value="${dataSource.maxIdle}" />
+        <property name="minIdle" value="${dataSource.minIdle}" />
+        <property name="maxWait" value="${dataSource.maxWait}" />
+        <property name="testWhileIdle" value="${dataSource.testWhileIdle}" />
+        <property name="timeBetweenEvictionRunsMillis"  value="${dataSource.timeBetweenEvictionRunsMillis}" />
+        <property name="numTestsPerEvictionRun" value="${dataSource.numTestsPerEvictionRun}" />
+        <property name="minEvictableIdleTimeMillis" value="${dataSource.minEvictableIdleTimeMillis}" />
+        <property name="poolPreparedStatements" value="${dataSource.poolPreparedStatements}" />
+        <property name="maxOpenPreparedStatements" value="${dataSource.maxOpenPreparedStatements}" />
+        <property name="defaultAutoCommit" value="${dataSource.defaultAutoCommit}" />
+        <property name="removeAbandoned" value="${dataSource.removeAbandoned}" />
+        <property name="removeAbandonedTimeout" value="${dataSource.removeAbandonedTimeout}" />
+        <property name="logAbandoned" value="${dataSource.logAbandoned}" />
+  
+    </bean>
+	
+	
+	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+	<property name="configLocation" value="classpath:spring/mybatis-config.xml"/>
+	  
+	
+	</bean>
+	
+	<!--SqlSessionTemplate你不可以手动关闭。SqlSessionTemplate是一个代理类，内部他会为每次请求创建线程安全的sqlsession,
+    //并与Spring进行集成.在你的方法调用完毕以后他会自动关闭的
+    //容器默认创建的bean都是“singleton ”单例模式，单例模式只会创建一个bean,只要容器不销毁退出，会一直存活scope="prototype"-->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" scope="prototype">
+		<constructor-arg index="0" ref="sqlSessionFactory"></constructor-arg>
+	</bean>
+
+	
+	
+	
+	<bean name="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">   
+    	<property name="dataSource" ref="dataSource"></property>
+ 	</bean>
+    <!-- 启用支持annotation注解方式事务管理-->
+  <tx:annotation-driven transaction-manager="transactionManager"/>
+  
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="delete*" propagation="REQUIRED" read-only="false" 
+			           rollback-for="java.lang.Exception"/>
+			<tx:method name="insert*" propagation="REQUIRED" read-only="false" 
+			           rollback-for="java.lang.Exception" />
+			<tx:method name="update*" propagation="REQUIRED" read-only="false" 
+			           rollback-for="java.lang.Exception" />
+			<tx:method name="save*" propagation="REQUIRED" read-only="false" 
+			           rollback-for="java.lang.Exception" />
+			<tx:method name="*" propagation="REQUIRED" read-only="true"/>
+		</tx:attributes>
+	</tx:advice>
+	
+	<aop:config>
+		<aop:pointcut id="pc" expression="execution(* coms.hrsoft.service..*(..))" />
+		<aop:advisor pointcut-ref="pc" advice-ref="txAdvice" />
+	</aop:config>
+	
+	
+   <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">  
+        <property name="prefix" value="/"></property>  
+        <property name="suffix" value=".jsp"></property>  
+      
+   </bean>  
+     
+   <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">  
+        <property name="defaultEncoding" value="utf-8"></property>   
+        <property name="maxUploadSize" value="10485760000"></property>  
+        <property name="maxInMemorySize" value="40960"></property>  
+   </bean> 
+		
+</beans>
