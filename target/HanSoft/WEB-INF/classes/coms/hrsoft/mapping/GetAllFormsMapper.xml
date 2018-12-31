@@ -16,10 +16,10 @@
 
     </select>
 
-    <select id="searchForms" resultType="java.util.Map">
+    <select id="searchForms" parameterType="string" resultType="java.util.Map">
 
-    
 
+ select waterId,typeName, waterName,waterUpperLimit,waterLowerLimit,useWaterAmount,creatorName,createDate from waterForm where userName=#{username,jdbcType=VARCHAR}
 
 
     </select>

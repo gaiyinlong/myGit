@@ -12,4 +12,5 @@ public interface MediumService {
     //获取介质的名称
     ArrayList<Medium> listAllMediumName();
 
+
 }
