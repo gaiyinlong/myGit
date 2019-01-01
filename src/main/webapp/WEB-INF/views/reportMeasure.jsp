@@ -88,7 +88,9 @@
                                 <table id="dataTable1" class="table table-hover table-striped">
                                     <tr class="trth">
                                         <th>仪器编号</th>
+
                                         <th>仪器名称</th>
+                                        <th>区域</th>
                                         <th>仪表类型</th>
                                         <th>上底数</th>
                                         <th>下底数</th>
@@ -295,6 +297,7 @@
                            tbBody += "<tr id=\"template\">" +
                                "<td id=\"ids\">"+waterFormList[i].waterId+"</td>"
                            +"<td id=\"name\">"+waterFormList[i].waterName+"</td>"
+                               + "<td id=\"areas\">"+waterFormList[i].areaName+ "</td>"
                              +"<td id=\"typeid\">"+waterFormList[i].typeName+"</td>"
                               +"<td id=\"up\">"+waterFormList[i].waterUpperLimit+"</td>"
                              +"<td id=\"low\">"+waterFormList[i].waterLowerLimit+"</td>"
@@ -333,6 +336,8 @@
 
                         "<td id=\"ids\">" + electricityFormList[i].electricityId + "</td>"
                         + "<td id=\"name\">" + electricityFormList[i].electricityName + "</td>"
+                        + "<td id=\"areas\">" + electricityFormList[i].areaName+ "</td>"
+
                         + "<td id=\"typeid\">" + electricityFormList[i].typeName + "</td>"
                         + "<td id=\"up\">" + electricityFormList[i].elecUpperLimit + "</td>"
                         + "<td id=\"low\">" + electricityFormList[i].elecLowerLimit + "</td>"

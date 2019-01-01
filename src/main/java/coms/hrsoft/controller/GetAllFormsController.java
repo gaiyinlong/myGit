@@ -59,7 +59,10 @@ public class GetAllFormsController {
      System.out.println("进入条件查询");
 
 
+
      List<Object> search=getAllFormsService.searchForms(areaName,mediumName,start,end);
+
+
 
      if(search!=null){
 

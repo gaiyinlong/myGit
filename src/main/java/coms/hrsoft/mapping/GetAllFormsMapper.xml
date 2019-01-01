@@ -10,21 +10,23 @@
 
     <select id="GetAllForms" resultType="java.util.Map">
 
-      select waterId,typeName, waterName,waterUpperLimit,waterLowerLimit,useWaterAmount,creatorName,createDate from waterForm join energyType on waterForm.typeId=energyType.typeId
-      UNION All
-      select electricityId,typeName, electricityName,elecUpperLimit,elecLowerLimit,useElecAmount,creatorName,createDate from electricityForm join energyType on electricityForm.typeId=energyType.typeId
+    select waterId, typeName,areaName,waterName,waterUpperLimit,waterLowerLimit,useWaterAmount,waterForm.creatorName,waterForm.createDate from waterForm join energyType on waterForm.typeId=energyType.typeId
+    join area on waterForm.areaId=area.areaId
+  UNION All
+      select electricityId,typeName,areaName, electricityName,elecUpperLimit,elecLowerLimit,useElecAmount,electricityForm.creatorName,electricityForm.createDate from electricityForm join energyType on electricityForm.typeId=energyType.typeId
+      join area on electricityForm.areaId=area.areaId
+
+        </select>
+
+<select id="searchForms" parameterType="string" resultType="java.util.Map">
+
+
+  select waterId,typeName,waterName,waterUpperLimit,waterLowerLimit,useWaterAmount,creatorName,createDate from waterForm where =  #{username,jdbcType=VARCHAR}
+
 
     </select>
 
-    <select id="searchForms" parameterType="string" resultType="java.util.Map">
 
-
- select waterId,typeName, waterName,waterUpperLimit,waterLowerLimit,useWaterAmount,creatorName,createDate from waterForm where userName=#{username,jdbcType=VARCHAR}
-
-
-    </select>
-
-
-</mapper>
+        </mapper>
 
 
